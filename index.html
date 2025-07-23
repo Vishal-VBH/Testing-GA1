@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <!-- <link rel="stylesheet" href="./blog.css"> -->
+  <title>Frontend Mentor | Blog preview card</title>
+  
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5ZNNJ5VK');</script>
+  <!-- End Google Tag Manager -->
+  
+  <style>
+    /* Blog Card CSS */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Figtree', sans-serif;
+      background-color: hsl(47, 88%, 63%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .blog_card {
+      background-color: white;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 8px 8px 0px 0px hsl(0, 0%, 7%);
+      border: 1px solid hsl(0, 0%, 7%);
+      max-width: 384px;
+      transition: transform 0.3s ease;
+    }
+
+    .blog_card:hover {
+      transform: translateY(-8px);
+      box-shadow: 16px 16px 0px 0px hsl(0, 0%, 7%);
+    }
+
+    .box2 {
+      margin-bottom: 24px;
+    }
+
+    #image1 {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    #btn_learning {
+      background-color: hsl(47, 88%, 63%);
+      color: hsl(0, 0%, 7%);
+      border: none;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+
+    .entry_details h2 {
+      color: hsl(0, 0%, 7%);
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.5;
+      margin: 12px 0;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .entry_details h2:hover {
+      color: hsl(47, 88%, 63%);
+    }
+
+    .entry_details p {
+      color: hsl(0, 0%, 42%);
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 12px 0;
+    }
+
+    #p1 {
+      color: hsl(0, 0%, 7%);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .down_section {
+      display: flex;
+      align-items: center;
+      margin-top: 24px;
+    }
+
+    #img_icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      margin-right: 12px;
+    }
+
+    #p2 {
+      color: hsl(0, 0%, 7%);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      left: 0;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+      text-decoration: none;
+    }
+
+    .attribution a:hover {
+      text-decoration: underline;
+    }
+
+    /* E-commerce Test Buttons */
+    .ga-test-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+      transition: all 0.2s ease;
+      z-index: 1000;
+    }
+    
+    .ga-test-button:hover {
+      background: #0056b3;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    
+    .ga-test-button[style*="background: #28a745"]:hover {
+      background: #1e7e34 !important;
+    }
+    
+    .ga-test-button:active {
+      transform: translateY(0);
+    }
+    
+    .test-notification {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      background: #28a745;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 4px;
+      font-size: 14px;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      z-index: 1001;
+    }
+    
+    .test-notification.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 480px) {
+      .ga-test-button {
+        position: relative;
+        display: block;
+        margin: 10px auto;
+        top: auto;
+        right: auto;
+      }
+      
+      .test-notification {
+        right: 10px;
+        left: 10px;
+        width: auto;
+      }
+      
+      body {
+        padding: 10px;
+      }
+      
+      .blog_card {
+        max-width: 100%;
+      }
+    }
+    .ga-test-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+      transition: all 0.2s ease;
+      z-index: 1000;
+    }
+    
+    .ga-test-button:hover {
+      background: #0056b3;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    
+    .ga-test-button[style*="background: #28a745"]:hover {
+      background: #1e7e34 !important;
+    }
+    
+    .ga-test-button:active {
+      transform: translateY(0);
+    }
+    
+    .test-notification {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      background: #28a745;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 4px;
+      font-size: 14px;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      z-index: 1001;
+    }
+    
+    .test-notification.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5ZNNJ5VK"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <!-- E-commerce Test Buttons -->
+  <button class="ga-test-button" onclick="addToCart()" style="right: 170px;">
+    Add to Cart
+  </button>
+  
+  <button class="ga-test-button" onclick="proceedToPay()" style="background: #28a745; right: 20px;">
+    Proceed to Pay
+  </button>
+  
+  <!-- Notification for test feedback -->
+  <div id="testNotification" class="test-notification"></div>
+
+  <div class="blog_card">
+    <div class="box">
+      <div class="box2" id="img_box">
+        <img id="image1" src="./assets/images/illustration-article.svg" alt="">
+      </div>
+      <div class="contents">
+        <button id="btn_learning">Learning</button>
+        <br>
+        <div class="entry_details">
+        <p id="p1">Published 21 Dec 2023</p> <br>
+        <h2>HTML & CSS foundations</h2> <br>
+        <p>These languages are backbone of every website, defining structure,content and presentation.</p>
+      </div>
+        <div class="down_section">
+        <img id='img_icon' src="./assets/images/image-avatar.webp" alt="">
+        <p id="p2">Greg Hooper</p>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div align="center" class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+    Coded by <a href="#">Vishal_B_H</a>
+  </div>
+
+  <script>
+    function addToCart() {
+      // Test if gtag function exists (Google Analytics 4)
+      if (typeof gtag !== 'undefined') {
+        // Send add_to_cart event to GA4 (Enhanced Ecommerce)
+        gtag('event', 'add_to_cart', {
+          'currency': 'USD',
+          'value': 19.99,
+          'items': [{
+            'item_id': 'course_001',
+            'item_name': 'HTML & CSS Foundations Course',
+            'item_category': 'Education',
+            'item_category2': 'Web Development',
+            'price': 19.99,
+            'quantity': 1
+          }]
+        });
+        showNotification('Product added to cart! GA4 event sent.', 'success');
+        console.log('GA4 add_to_cart event sent');
+      } 
+      // Test if dataLayer exists (Google Tag Manager)
+      else if (typeof dataLayer !== 'undefined') {
+        dataLayer.push({
+          'event': 'add_to_cart',
+          'ecommerce': {
+            'currency': 'USD',
+            'value': 19.99,
+            'items': [{
+              'item_id': 'course_001',
+              'item_name': 'HTML & CSS Foundations Course',
+              'item_category': 'Education',
+              'price': 19.99,
+              'quantity': 1
+            }]
+          }
+        });
+        showNotification('Product added to cart! Event sent to GTM.', 'success');
+        console.log('Add to cart event pushed to dataLayer');
+      }
+      else {
+        showNotification('Product added to cart! (No tracking detected)', 'warning');
+        console.log('Add to cart - No Google Analytics or GTM found');
+      }
+    }
+    
+    function proceedToPay() {
+      // Test if gtag function exists (Google Analytics 4)
+      if (typeof gtag !== 'undefined') {
+        // Send begin_checkout event to GA4
+        gtag('event', 'begin_checkout', {
+          'currency': 'USD',
+          'value': 19.99,
+          'items': [{
+            'item_id': 'course_001',
+            'item_name': 'HTML & CSS Foundations Course',
+            'item_category': 'Education',
+            'item_category2': 'Web Development',
+            'price': 19.99,
+            'quantity': 1
+          }]
+        });
+        showNotification('Proceeding to checkout! GA4 event sent.', 'success');
+        console.log('GA4 begin_checkout event sent');
+      } 
+      // Test if dataLayer exists (Google Tag Manager)
+      else if (typeof dataLayer !== 'undefined') {
+        dataLayer.push({
+          'event': 'begin_checkout',
+          'ecommerce': {
+            'currency': 'USD',
+            'value': 19.99,
+            'items': [{
+              'item_id': 'course_001',
+              'item_name': 'HTML & CSS Foundations Course',
+              'item_category': 'Education',
+              'price': 19.99,
+              'quantity': 1
+            }]
+          }
+        });
+        showNotification('Proceeding to checkout! Event sent to GTM.', 'success');
+        console.log('Begin checkout event pushed to dataLayer');
+      }
+      else {
+        showNotification('Proceeding to checkout! (No tracking detected)', 'warning');
+        console.log('Proceed to pay - No Google Analytics or GTM found');
+      }
+    }
+
+    function testGoogleAnalytics() {
+      // Test if gtag function exists (Google Analytics 4)
+      if (typeof gtag !== 'undefined') {
+        // Send a custom event to GA4
+        gtag('event', 'test_button_click', {
+          'event_category': 'engagement',
+          'event_label': 'GA Test Button',
+          'custom_parameter': 'test_value'
+        });
+        showNotification('GA4 event sent successfully!', 'success');
+        console.log('GA4 event sent: test_button_click');
+      } 
+      // Test if ga function exists (Universal Analytics - legacy)
+      else if (typeof ga !== 'undefined') {
+        ga('send', 'event', 'Test', 'Button Click', 'GA Test Button');
+        showNotification('Universal Analytics event sent!', 'success');
+        console.log('Universal Analytics event sent');
+      }
+      // Test if dataLayer exists (Google Tag Manager)
+      else if (typeof dataLayer !== 'undefined') {
+        dataLayer.push({
+          'event': 'test_button_click',
+          'event_category': 'engagement',
+          'event_action': 'click',
+          'event_label': 'GA Test Button'
+        });
+        showNotification('Event pushed to dataLayer!', 'success');
+        console.log('Event pushed to dataLayer');
+      }
+      else {
+        showNotification('No Google Analytics detected', 'warning');
+        console.log('No Google Analytics or GTM found');
+      }
+    }
+    
+    function showNotification(message, type) {
+      const notification = document.getElementById('testNotification');
+      notification.textContent = message;
+      notification.style.background = type === 'success' ? '#28a745' : '#ffc107';
+      notification.style.color = type === 'success' ? 'white' : '#212529';
+      notification.classList.add('show');
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
+    
+    // Additional test functions you can call from console
+    window.gaTest = {
+      // Test page view
+      testPageView: function() {
+        if (typeof gtag !== 'undefined') {
+          gtag('config', 'GA_MEASUREMENT_ID', {
+            page_title: 'Test Page View',
+            page_location: window.location.href
+          });
+          console.log('Test page view sent');
+        }
+      },
+      
+      // Test custom event with parameters
+      testCustomEvent: function() {
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'custom_test_event', {
+            'custom_parameter_1': 'test_value_1',
+            'custom_parameter_2': 'test_value_2',
+            'event_category': 'testing',
+            'event_label': 'Console Test'
+          });
+          console.log('Custom test event sent');
+        }
+      }
+    };
+  </script>
+</body>
+</html>
